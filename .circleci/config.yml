@@ -1,33 +1,30 @@
 version: 2
-dependencies:
-  pre: ./env.sh
+commit-workflow:
+  jobs:
+    build:
+      working_directory: ~/workspace    
 
-    
-jobs:   
-  build:
-    working_directory: ~/workspace    
-    
-    docker:
-      - image: docker:18.03-git
+      docker:
+        - image: docker:18.03-git
 
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          command: |
-            export TAG=`date +%Y.%m.%d`
-            docker build -t moyomot/neologd-igo:"$TAG" .
+      steps:
+        - checkout
+        - setup_remote_docker
+        - run:
+            command: |
+              export TAG=`date +%Y.%m.%d`
+              docker build -t moyomot/neologd-igo:"$TAG" .
 
-      - deploy:
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
-              docker push moyomot/neologd-igo:"$TAG"
-            fi
+        - deploy:
+            command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+                docker push moyomot/neologd-igo:"$TAG"
+              fi
 scheduled-workflow:
     triggers:
       - schedule:
-          cron: "47 * * * *"
+          cron: "18 * * * *"
           filters:
             branches:
               only: master
