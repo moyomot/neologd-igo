@@ -17,6 +17,7 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              export TAG=`date +%Y.%m.%d`
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
               docker push moyomot/neologd-igo:"$TAG"
             fi
