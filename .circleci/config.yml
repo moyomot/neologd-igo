@@ -2,10 +2,8 @@ version: 2
 
 jobs:
   build:
-    environment:
-      TAG: "`date +%Y.%m.%d`"
     working_directory: ~/workspace
-    tag: date +%Y.%m.%d`
+    tag: `date +%Y.%m.%d`
 
     docker:
       - image: docker:18.03-git
