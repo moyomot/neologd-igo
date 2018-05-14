@@ -1,10 +1,9 @@
 version: 2
 
-jobs:
-  environment:
-    tag: 1
-    
+jobs:   
   build:
+    environment:
+      tag: 1
     working_directory: ~/workspace    
     
     docker:
