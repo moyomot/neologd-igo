@@ -3,8 +3,7 @@ version: 2
 jobs:
   build:
     working_directory: ~/workspace
-    tag: `date +%Y.%m.%d`
-
+    
     docker:
       - image: docker:18.03-git
 
