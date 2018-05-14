@@ -15,7 +15,8 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            docker build -t moyomot/neologd-igo:"$(`date +%Y.%m.%d`)" .
+            export a=`date "+%Y"
+            docker build -t moyomot/neologd-igo:"$a" .
 
       - deploy:
           command: |
