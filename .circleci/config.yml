@@ -5,6 +5,7 @@ jobs:
     environment:
       TAG: "`date +%Y.%m.%d`"
     working_directory: ~/workspace
+    tag: date +%Y.%m.%d`
 
     docker:
       - image: docker:18.03-git
@@ -14,15 +15,13 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            echo 'export TAG=`date +%Y.%m.%d`'
-            docker build -t moyomot/neologd-igo:$TAG .
+            docker build -t moyomot/neologd-igo:$CIRCLE_TAG .
 
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo 'export TAG=`date +%Y.%m.%d`' 
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
-              docker push moyomot/neologd-igo:$TAG
+              docker push moyomot/neologd-igo:$CIRCLE_TAG
             fi
 scheduled-workflow:
     triggers:
