@@ -1,7 +1,4 @@
 version: 2
-dependencies:
-  pre:
-    - ./env.sh
 
 jobs:
   build:
@@ -16,11 +13,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+      echo 'export PATH=/path/to/foo/bin:$PATH' >> $BASH_ENV
           command: docker build -t moyomot/neologd-igo:$TAG .
 
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo 'export TAG=`date +%Y.%m.%d`' 
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
               docker push moyomot/neologd-igo:$TAG
             fi
