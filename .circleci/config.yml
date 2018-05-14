@@ -5,8 +5,6 @@ dependencies:
     
 jobs:   
   build:
-    environment:
-      tag: 1
     working_directory: ~/workspace    
     
     docker:
@@ -19,7 +17,7 @@ jobs:
           command: |
             echo $TAG
             echo ${TAG}
-            docker build -t moyomot/neologd-igo:$tag .
+            docker build -t moyomot/neologd-igo:$TAG .
 
       - deploy:
           command: |
