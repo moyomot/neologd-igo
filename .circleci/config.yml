@@ -1,0 +1,34 @@
+version: 2
+dependencies:
+  pre:
+    - ./env.sh
+jobs:
+  build:
+    working_directory: ~/workspace
+
+    docker:
+      - image: docker:18.03-git
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: docker build -t moyomot/neologd-igo:$TAG .
+
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+              docker push moyomot/neologd-igo:$TAG
+            fi
+scheduled-workflow:
+    triggers:
+      - schedule:
+          cron: "47 * * * *"
+          filters:
+            branches:
+              only: master
+
+    jobs:
+      - build
+      
