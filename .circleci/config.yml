@@ -13,8 +13,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-      echo 'export PATH=/path/to/foo/bin:$PATH' >> $BASH_ENV
-          command: docker build -t moyomot/neologd-igo:$TAG .
+          command: |
+            echo 'export TAG=`date +%Y.%m.%d`'
+            docker build -t moyomot/neologd-igo:$TAG .
 
       - deploy:
           command: |
