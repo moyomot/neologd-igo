@@ -15,16 +15,13 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            echo TAG="`date +%Y.%m.%d`" >> $BASH_ENV
-            echo $TAG
-            echo ${TAG}
-            docker build -t moyomot/neologd-igo:$TAG .
+            docker build -t moyomot/neologd-igo:"$(`date +%Y.%m.%d`)" .
 
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
-              docker push moyomot/neologd-igo:$tag
+              docker push moyomot/neologd-igo:"$(`date +%Y.%m.%d`)"
             fi
 scheduled-workflow:
     triggers:
