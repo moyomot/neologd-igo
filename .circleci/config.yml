@@ -1,5 +1,8 @@
 version: 2
+dependencies:
+  pre: ./env.sh
 
+    
 jobs:   
   build:
     environment:
@@ -14,6 +17,8 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
+            echo $TAG
+            echo ${TAG}
             docker build -t moyomot/neologd-igo:$tag .
 
       - deploy:
