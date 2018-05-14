@@ -1,10 +1,11 @@
 version: 2
 
 jobs:
+  environment:
+    tag: 1
+    
   build:
-    working_directory: ~/workspace
-    CIRCLE_TAG: 1
-    tagg: 1
+    working_directory: ~/workspace    
     
     docker:
       - image: docker:18.03-git
@@ -14,13 +15,13 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            docker build -t moyomot/neologd-igo:$CIRCLE_TAGG .
+            docker build -t moyomot/neologd-igo:$tag .
 
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
-              docker push moyomot/neologd-igo:$CIRCLE_TAGG
+              docker push moyomot/neologd-igo:$tag
             fi
 scheduled-workflow:
     triggers:
