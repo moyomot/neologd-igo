@@ -4,6 +4,7 @@ jobs:
   build:
     working_directory: ~/workspace
     CIRCLE_TAG: 1
+    TAG: 1
     
     docker:
       - image: docker:18.03-git
