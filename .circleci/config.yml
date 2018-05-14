@@ -1,4 +1,5 @@
 version: 2
+TAG: "`date +%Y.%m.%d`"
 jobs:
   build:
     working_directory: ~/workspace
@@ -10,13 +11,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker build -t moyomot/neologd-igo:1 .
+          command: docker build -t moyomot/neologd-igo:$TAG .
 
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
-              docker push moyomot/neologd-igo:1
+              docker push moyomot/neologd-igo:$TAG
             fi
 
 scheduled-workflow:
