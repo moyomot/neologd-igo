@@ -2,8 +2,11 @@ version: 2
 dependencies:
   pre:
     - ./env.sh
+
 jobs:
   build:
+    environment:
+      TAG: "`date +%Y.%m.%d`"
     working_directory: ~/workspace
 
     docker:
