@@ -20,11 +20,12 @@ jobs:
               export TAG=`date +%Y.%m.%d`
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
               docker push moyomot/neologd-igo:"$TAG"
+              docker push moyomot/neologd-igo:latest
             fi
             
 workflows:
   version: 2
-  nightly_workflow:
+  workflow:
     triggers:
       - schedule:
           cron: "0 0 * * 2,5" 
