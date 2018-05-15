@@ -2,11 +2,9 @@ version: 2
     
 jobs:   
   build:
-    working_directory: ~/workspace    
-    
+    working_directory: ~/workspace        
     docker:
       - image: docker:18.03-git
-
     steps:
       - checkout
       - setup_remote_docker
