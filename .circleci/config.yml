@@ -22,15 +22,4 @@ jobs:
               docker push moyomot/neologd-igo:latest
             fi
             
-workflows:
-  version: 2
-  workflow:
-    triggers:
-      - schedule:
-          cron: "0 0 * * 2,5" 
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - build
+
