@@ -16,9 +16,9 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               export TAG=`date +%Y.%m.%d`
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
-              docker tag moyomot/neologd-igo:"$TAG"
+              docker tag moyomot/neologd-igo moyomot/neologd-igo:"$TAG"
               docker push moyomot/neologd-igo:"$TAG"
-              docker tag moyomot/neologd-igo:latest
+              docker tag moyomot/neologd-igo moyomot/neologd-igo:latest
               docker push moyomot/neologd-igo:latest
             fi
             
