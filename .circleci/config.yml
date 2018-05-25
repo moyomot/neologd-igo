@@ -10,14 +10,15 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            export TAG=`date +%Y.%m.%d`
-            docker build -t moyomot/neologd-igo:"$TAG" .
+            docker build -t moyomot/neologd-igo .
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               export TAG=`date +%Y.%m.%d`
               docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+              docker tag moyomot/neologd-igo:"$TAG"
               docker push moyomot/neologd-igo:"$TAG"
+              docker tag moyomot/neologd-igo:latest
               docker push moyomot/neologd-igo:latest
             fi
             
